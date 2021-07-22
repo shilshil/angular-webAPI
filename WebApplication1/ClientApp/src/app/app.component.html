@@ -1,0 +1,98 @@
+﻿<div *ngIf="formcheck; else data" class="container">
+    <h2> Отправить сообщение</h2>
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm.value)">
+
+        <div class="form-group">
+            <label class="form-item">Имя <i class="fa fa-user" aria-hidden="true"></i></label>
+            <input type="text" class="form-control" name="name" #name="ngModel" required="" autofocus placeholder="Укажите ваше имя" ngModel>
+
+        </div>
+        <div class="error" [hidden]="name.valid || name.untouched">
+            Вы не указали своё имя! Разрешены только буквы
+        </div>
+
+        <div class="form-group">
+            <label class="form-item">Email <i class="fa fa-envelope" aria-hidden="true"></i></label>
+            <input type="email" class="form-control" name="email" #email="ngModel" required="" placeholder="Укажите ваш электронный адрес E-Mail" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$" ngModel>
+        </div>
+        <div class="error" [hidden]="email.valid || email.untouched">
+            Вы не указали свой E-mail! Формат mail@mail.ru
+        </div>
+
+        <div class="form-group tel-number">
+            <label class="form-item">Телефон <i class="fa fa-phone" aria-hidden="true"></i></label>
+            <input class="form-control" type="text" name="phone" value="+7 (___) ___-__-__" #phone="ngModel" id="phone" required=""
+                   placeholder="Укажите ваш контактный номер телефона +7 (___) ___-__-__" pattern="['+', '7', ' ', '(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]" ngModel>
+        </div>
+        <div class="error" [hidden]="email.valid || email.untouched">
+            Вы не указали свой телефон! Формат 8 (999) 999-99-99
+        </div>
+
+        <div class="form-group">
+            <label class="form-item">Тема <i class="fa fa-indent" aria-hidden="true"></i></label>
+            <select style="width:100%;height:30px" name="theme" ngModel (change)="onChange($event)">
+                <option class="form-group" *ngFor="let tm of themes" [value]="tm.subject">
+                    {{tm.subject}}
+                </option>
+            </select>
+        </div>
+        <div class="error" [hidden]="selector">
+            Выбирите тему вопроса!
+        </div>
+
+        <div class="form-group">
+            <label class="form-item">
+                Текст сообщения <i class="fa fa-comment" aria-hidden="true"></i>
+            </label>
+            <textarea class="form-control" name="text" #text="ngModel" required="" placeholder="Ваше собщение" rows="10" ngModel> </textarea>
+        </div>
+        <div class="error" [hidden]="text.valid || text.untouched">
+            Вы не ввели текст вопроса!
+        </div>
+
+        <div class="CAPTCHA form  form-group">
+            <label class="form-item" style="width:20%">Введите текст с картинки <i class="fa fa-check-circle-o" aria-hidden="true"></i></label>
+            <input class="CAPTCHA form-control" style="width:20%" [ngClass]="{captchaInvalid: keyValid}" name="key" ngModel required="" />
+            <img [src]="image">
+            <i (click)="reCaptcha()" class="fas fa-redo-alt"></i>
+        </div>
+        <div [hidden]="erorohidden" class="error">
+            {{errorMes}}
+        </div>
+        <button [disabled]="name.invalid || email.invalid || phone.invalid || text.invalid" type="submit" class="btn btn-success" style="width:20%; margin-left:40%; margin-bottom:2%;">Отправить</button>
+    </form>
+</div>
+
+
+<ng-template #data>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <td>Имя</td>
+                <td>E-mail</td>
+                <td>Телефон</td>
+                <td>Тема сообщения</td>
+                <td>Текст сообщения</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    {{user.name}}
+                </td>
+                <td>
+                    {{user.email}}
+                </td>
+                <td>
+                    {{user.phone}}
+                </td>
+                <td>
+                    {{theme.subject}}
+                </td>
+                <td>
+                    {{message.text}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn btn-success back_button"  (click)="reload()">Назад</button>

@@ -1,0 +1,50 @@
+﻿body {
+}
+h2 {
+    background-color: darkred;
+    color: wheat;
+    width:100%;
+    text-align:center;
+}
+.container {
+    border: 1px solid black;
+    border-radius: 15px;
+    margin: 1% auto;
+    width:60%;
+    padding:0;
+}
+
+.form-group {
+    display: inline-flex;
+    width: 95%;
+}
+
+.form-item {
+    width:15%;
+    text-align:center;
+}
+
+thead {
+    font-style: italic;
+    font-weight: 900;
+}
+
+table {
+    width: 60%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.back_button {
+    width: 10%;
+    margin-left: 45%;
+}
+
+.error {
+    font-style: italic;
+    width: max-content;
+    margin-left:12%;
+    border-bottom: 1px red solid;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
